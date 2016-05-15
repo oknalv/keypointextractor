@@ -1,0 +1,50 @@
+<langs>
+    <lang id="en" name="English">
+        <text>Language</text>
+        <text>Generate</text>
+        <text>Video file</text>
+        <text>Output file</text>
+        <text>Processing</text>
+        <text>File succesfully created.</text>
+        <text>Accept</text>
+        <text>You have to choose a video file.</text>
+        <text>You have to choose an output file.</text>
+        <text>An unexpected error occurred. The file could not be created.</text>
+        <text>Image file</text>
+        <text>You have to choose an image file.</text>
+        <text>Help</text>
+        <text>In order to use this application, you must provide three files:&lt;ul&gt;&lt;li&gt;An image file: you have to provide an image with the human model face in a neutral expression. This picture must be taken with the camera at the same position that in the video. This is an example, done with a 3d character model, showing a neutral expression:&lt;div&gt;&lt;img src="resources/example.png"/&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;A video file: for better results, the head must stay motionless while doing the facial movements.&lt;/li&gt;&lt;li&gt;An output file.&lt;/li&gt;&lt;/ul&gt;</text>
+    </lang>
+    <lang id="es" name="Español">
+        <text>Idioma</text>
+        <text>Generar</text>
+        <text>Archivo de vídeo</text>
+        <text>Archivo de salida</text>
+        <text>Procesando</text>
+        <text>Archivo creado correctamente</text>
+        <text>Aceptar</text>
+        <text>Tienes que elegir un archivo de vídeo</text>
+        <text>Tienes que elegir un archivo de salida</text>
+        <text>Hubo un error inesperado. El archivo no se pudo crear.</text>
+        <text>Archivo de imagen</text>
+        <text>Tienes que elegir un archivo de imagen</text>
+        <text>Ayuda</text>
+        <text>Para usar esta aplicación, debes introducir tres archivos:&lt;ul&gt;&lt;li&gt;Un archivo de imagen: tienes que utilizar una imagen con la cara del modelo humano en una expresión neutra. Esta imagen debe ser tomada con la cámara en la misma posición que en el vídeo. Este es un ejemplo, hecho con un modelo de un personaje en 3d, mostrando una expresión neutra:&lt;div&gt;&lt;img src="resources/example.png"/&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;Un archivo de vídeo: para mejores resultados, la cabeza debe permanecer inmóvil mientras hace los movimientos faciales.&lt;/li&gt;&lt;li&gt;Un archivo de salida.&lt;/li&gt;&lt;/ul&gt;</text>
+    </lang>
+    <lang id="gl" name="Galego">
+        <text>Idioma</text>
+        <text>Xerar</text>
+        <text>Arquivo de vídeo</text>
+        <text>Arquivo de saída</text>
+        <text>Procesando</text>
+        <text>Arquivo creado correctamente</text>
+        <text>Aceptar</text>
+        <text>Tes que elixir un arquivo de vídeo</text>
+        <text>Tes que elixir un arquivo de saída</text>
+        <text>Houbo un erro inesperado. O arquivo non se puido crear.</text>
+        <text>Arquivo de imaxe</text>
+        <text>Tes que elixir un arquivo de imaxe</text>
+        <text>Axuda</text>
+        <text>Para usar esta aplicación, debes introducir tres arquivos:&lt;ul&gt;&lt;li&gt;Un arquivo de imaxe: tes que empregar unha imaxe coa cara do modelo humano nunha expresión neutra. Esta imaxe debe ser quitada coa cámara na mesma posición que no vídeo. Este é un exemplo, feito cun modelo dunha persoaxe en 3d, mostrando unha expresión neutra:&lt;div&gt;&lt;img src="resources/example.png"/&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;Un arquivo de vídeo: para mellores resultados, a cabeza debe permanecer inmóbil mentres fai os movementos faciais.&lt;/li&gt;&lt;li&gt;Un arquivo de saída.&lt;/li&gt;&lt;/ul&gt;</text>
+    </lang>
+</langs>
