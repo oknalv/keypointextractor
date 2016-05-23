@@ -137,7 +137,8 @@ class GUI(QtGui.QWidget):
         except EmptyFileOutputError:
             QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[lang][8], self.texts[lang][6])
 
-        except:
+        except Exception, e:
+            print(type(e).__name__ + ": " + e.message)
             QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[lang][9], self.texts[lang][6])
 
 

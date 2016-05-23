@@ -25,6 +25,7 @@ def generate(inputimage, inputvideo, outputfile, observer = None):
 
     image = transformer.img2text(imgproc.get_keypoints(imgFile))
     vc = cv2.VideoCapture(inputvideo)
+    fps = vc.get(cv2.cv.CV_CAP_PROP_FPS) or 24
     frames = []
     current = 0
     perc = 0
@@ -62,5 +63,5 @@ def generate(inputimage, inputvideo, outputfile, observer = None):
 
     f = open(outputfile, "w")
     video = transformer.vid2text(frames)
-    f.write("<file><initialPosition>" + image + "</initialPosition>" + video + "</file>")
+    f.write("<file><metadata><fps>" + str(fps) + "</fps></metadata><initial>" + image + "</initial>" + video + "</file>")
     f.close()
