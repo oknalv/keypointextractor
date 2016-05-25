@@ -16,8 +16,12 @@ class PointTransformerXML(PointTransformer):
             i = " id='" + id + "'"
 
         s = "<face" + i + ">"
-        for pc, point in enumerate(l):
-            s += self.point2text(point, str(pc))
+        if len(l) == 1:
+            s += self.point2text(l[0])
+
+        else:
+            for pc, point in enumerate(l):
+                s += self.point2text(point, str(pc))
 
         s += "</face>"
         return s
@@ -28,8 +32,12 @@ class PointTransformerXML(PointTransformer):
             i = " id='" + id + "'"
 
         s = "<img" + i + ">"
-        for fc, face in enumerate(l):
-            s += self.face2text(face, str(fc))
+        if len(l) == 1:
+            s += self.face2text(l[0])
+
+        else:
+            for fc, face in enumerate(l):
+                s += self.face2text(face, str(fc))
 
         s += "</img>"
         return s

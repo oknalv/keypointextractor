@@ -63,5 +63,5 @@ def generate(inputimage, inputvideo, outputfile, observer = None):
 
     f = open(outputfile, "w")
     video = transformer.vid2text(frames)
-    f.write("<file><metadata><fps>" + str(fps) + "</fps></metadata><initial>" + image + "</initial>" + video + "</file>")
+    f.write("<file><metadata><fps value='" + str(fps) + "'/></metadata><initial>" + image + "</initial>" + video + "</file>")
     f.close()
