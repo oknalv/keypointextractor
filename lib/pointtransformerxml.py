@@ -1,16 +1,15 @@
 from pointtransformer import PointTransformer
 
+
 class PointTransformerXML(PointTransformer):
-
-
-    def point2text(self, l, id = None):
+    def point2text(self, l, id=None):
         i = ""
         if id is not None:
             i = " id='" + id + "'"
 
         return "<point" + i + " x='" + str(l[0]) + "' y='" + str(l[1]) + "' />"
 
-    def face2text(self, l, id = None):
+    def face2text(self, l, id=None):
         i = ""
         if id is not None:
             i = " id='" + id + "'"
@@ -26,7 +25,7 @@ class PointTransformerXML(PointTransformer):
         s += "</face>"
         return s
 
-    def img2text(self, l, id = None):
+    def img2text(self, l, id=None):
         i = ""
         if id is not None:
             i = " id='" + id + "'"
@@ -41,7 +40,6 @@ class PointTransformerXML(PointTransformer):
 
         s += "</img>"
         return s
-
 
     def vid2text(self, l):
         s = "<video>"

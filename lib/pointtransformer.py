@@ -1,5 +1,4 @@
 class PointTransformer:
-
     def point2text(self, l, id = None):
         pass
 

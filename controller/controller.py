@@ -3,65 +3,67 @@ from lib.pointtransformerxml import PointTransformerXML
 from lib.errors import *
 import cv2
 
-def generate(inputimage, inputvideo, outputfile, observer = None):
-    def get_percent(total, current):
-        return float(current) * 100.0 / float(total)
 
-    if inputimage is None or inputimage == "":
+def generate_output_file(input_image_path, input_video_path, output_file_path, observer=None):
+    def get_completed_percentage(total_frame_num, current_frame_num):
+        return float(current_frame_num) * 100.0 / float(total_frame_num)
+
+    if input_image_path is None or input_image_path == "":
         raise EmptyImageFileInputError
 
-    if inputvideo is None or inputvideo == "":
+    if input_video_path is None or input_video_path == "":
         raise EmptyVideoFileInputError
 
-    if outputfile is None or outputfile == "":
+    if output_file_path is None or output_file_path == "":
         raise EmptyFileOutputError
 
     predictor_path = "resources/shape_predictor_68_face_landmarks.dat"
-    imgproc = ImageProcDlib(predictor_path)
+    image_processor = ImageProcDlib(predictor_path)
     transformer = PointTransformerXML()
-    imgFile = cv2.imread(inputimage, cv2.IMREAD_GRAYSCALE)
-    if imgFile is None:
+    image_file = cv2.imread(input_image_path, cv2.IMREAD_GRAYSCALE)
+    if image_file is None:
         raise Exception
 
-    image = transformer.img2text(imgproc.get_keypoints(imgFile))
-    vc = cv2.VideoCapture(inputvideo)
-    fps = vc.get(cv2.cv.CV_CAP_PROP_FPS) or 24
+    image_string = transformer.img2text(image_processor.get_keypoints(image_file))
+    video_input_file = cv2.VideoCapture(input_video_path)
+    fps = video_input_file.get(cv2.cv.CV_CAP_PROP_FPS) or 24
     frames = []
     current = 0
-    perc = 0
-    prev_perc = 0
+    percentage = 0
+    previous_percentage = 0
     frame_num = 0
     if observer is not None:
-        while vc.isOpened():
-            ret, frame = vc.read()
-            if frame == None:
+        while video_input_file.isOpened():
+            ret, frame = video_input_file.read()
+            if frame is None:
                 break
+
             frame_num += 1
 
-        vc.release()
-        vc = cv2.VideoCapture(inputvideo)
+        video_input_file.release()
+        video_input_file = cv2.VideoCapture(input_video_path)
 
-    while vc.isOpened():
+    while video_input_file.isOpened():
         if observer is not None:
-            prev_perc = perc
-            perc = round(get_percent(frame_num, current))
-            if prev_perc != perc:
-                observer.update_percentage(int(perc))
+            previous_percentage = percentage
+            percentage = round(get_completed_percentage(frame_num, current))
+            if previous_percentage != percentage:
+                observer.update_completed_percentage(int(percentage))
 
         current += 1
-        ret, frame = vc.read()
-        if frame == None:
+        ret, frame = video_input_file.read()
+        if frame is None:
             break
 
-        img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = imgproc.get_keypoints(img)
+        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = image_processor.get_keypoints(gray_frame)
         frames.append(faces)
 
-    vc.release()
+    video_input_file.release()
     if len(frames) == 0:
         raise Exception
 
-    f = open(outputfile, "w")
+    output_file = open(output_file_path, "w")
     video = transformer.vid2text(frames)
-    f.write("<file><metadata><fps value='" + str(fps) + "'/></metadata><initial>" + image + "</initial>" + video + "</file>")
-    f.close()
+    output_file.write("<file><metadata><fps value='" + str(fps) + "'/></metadata><initial>" + image_string + "</initial>" + video + "</file>")
+    output_file.close()

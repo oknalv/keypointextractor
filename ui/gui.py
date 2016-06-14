@@ -5,85 +5,82 @@ import controller.controller as controller
 from lib.errors import *
 from PyQt4 import QtGui, QtCore
 
-class GUI(QtGui.QWidget):
 
+class GUI(QtGui.QWidget):
     def __init__(self):
         super(GUI, self).__init__()
         self.texts = {}
-        self.langs = {}
-        langxml = xml.parse("resources/lang.xml").getroot()
-        for lang in langxml.findall("lang"):
+        self.languages = {}
+        languages_xml_file = xml.parse("resources/lang.xml").getroot()
+        for lang in languages_xml_file.findall("lang"):
             id = lang.get("id")
             self.texts[id] = []
-            self.langs[id] = lang.get("name")
+            self.languages[id] = lang.get("name")
             for text in lang.iter("text"):
                 self.texts[id].append(text.text)
 
         self.init_ui()
 
     def init_ui(self):
-        vbox = QtGui.QVBoxLayout()
-        self.setLayout(vbox)
+        vertical_box = QtGui.QVBoxLayout()
+        self.setLayout(vertical_box)
 
-        optionhbox = QtGui.QHBoxLayout()
-        vbox.addLayout(optionhbox)
-        langhbox = QtGui.QHBoxLayout()
-        optionhbox.addLayout(langhbox)
-        langhbox.setAlignment(QtCore.Qt.AlignLeft)
-        self.languageLabel = QtGui.QLabel()
-        langhbox.addWidget(self.languageLabel)
-        self.languageLabel.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        self.languageCombo = QtGui.QComboBox()
-        langhbox.addWidget(self.languageCombo)
-        self.languageCombo.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        for lang in sorted(self.langs):
-            self.languageCombo.addItem(self.langs[lang])
+        options_horizontal_box = QtGui.QHBoxLayout()
+        vertical_box.addLayout(options_horizontal_box)
+        languages_horizontal_box = QtGui.QHBoxLayout()
+        options_horizontal_box.addLayout(languages_horizontal_box)
+        languages_horizontal_box.setAlignment(QtCore.Qt.AlignLeft)
+        self.language_label = QtGui.QLabel()
+        languages_horizontal_box.addWidget(self.language_label)
+        self.language_label.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        self.language_combo = QtGui.QComboBox()
+        languages_horizontal_box.addWidget(self.language_combo)
+        self.language_combo.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        for language in sorted(self.languages):
+            self.language_combo.addItem(self.languages[language])
 
-        self.languageCombo.setCurrentIndex(self.languageCombo.findText("English"))
-        self.languageCombo.currentIndexChanged.connect(self.change_language)
+        self.language_combo.setCurrentIndex(self.language_combo.findText("English"))
+        self.language_combo.currentIndexChanged.connect(self.change_language)
 
-        helphbox = QtGui.QHBoxLayout()
-        helphbox.setAlignment(QtCore.Qt.AlignRight)
-        optionhbox.addLayout(helphbox)
-        # self.helpButton = QtGui.QPushButton(QtGui.QIcon(QtGui.QPixmap("resources/help.png")), "")
-        self.helpButton = QtGui.QPushButton(QtGui.QIcon.fromTheme("system-help", QtGui.QIcon("resources/help.png")), "")
-        helphbox.addWidget(self.helpButton)
-        self.helpButton.clicked.connect(self.show_help)
+        help_horizontal_box = QtGui.QHBoxLayout()
+        help_horizontal_box.setAlignment(QtCore.Qt.AlignRight)
+        options_horizontal_box.addLayout(help_horizontal_box)
+        self.help_button = QtGui.QPushButton(QtGui.QIcon.fromTheme("system-help", QtGui.QIcon("resources/help.png")), "")
+        help_horizontal_box.addWidget(self.help_button)
+        self.help_button.clicked.connect(self.show_help)
 
-        inputimagefilehbox = QtGui.QHBoxLayout()
-        vbox.addLayout(inputimagefilehbox)
-        self.fileInputImageText = QtGui.QLineEdit()
-        inputimagefilehbox.addWidget(self.fileInputImageText)
-        self.fileInputImageButton = QtGui.QPushButton()
-        inputimagefilehbox.addWidget(self.fileInputImageButton)
-        self.fileInputImageButton.clicked.connect(self.get_input_image_file)
+        input_image_file_horizontal_box = QtGui.QHBoxLayout()
+        vertical_box.addLayout(input_image_file_horizontal_box)
+        self.file_input_image_text = QtGui.QLineEdit()
+        input_image_file_horizontal_box.addWidget(self.file_input_image_text)
+        self.file_input_image_button = QtGui.QPushButton()
+        input_image_file_horizontal_box.addWidget(self.file_input_image_button)
+        self.file_input_image_button.clicked.connect(self.get_input_image_file)
 
-        inputvideofilehbox = QtGui.QHBoxLayout()
-        vbox.addLayout(inputvideofilehbox)
-        self.fileInputVideoText = QtGui.QLineEdit()
-        inputvideofilehbox.addWidget(self.fileInputVideoText)
-        self.fileInputVideoButton = QtGui.QPushButton()
-        inputvideofilehbox.addWidget(self.fileInputVideoButton)
-        self.fileInputVideoButton.clicked.connect(self.get_input_video_file)
+        input_video_file_horizontal_box = QtGui.QHBoxLayout()
+        vertical_box.addLayout(input_video_file_horizontal_box)
+        self.file_input_video_text = QtGui.QLineEdit()
+        input_video_file_horizontal_box.addWidget(self.file_input_video_text)
+        self.file_input_video_button = QtGui.QPushButton()
+        input_video_file_horizontal_box.addWidget(self.file_input_video_button)
+        self.file_input_video_button.clicked.connect(self.get_input_video_file)
 
-        outputfilehbox = QtGui.QHBoxLayout()
-        vbox.addLayout(outputfilehbox)
-        self.fileOutputText = QtGui.QLineEdit()
-        outputfilehbox.addWidget(self.fileOutputText)
-        self.fileOutputButton = QtGui.QPushButton()
-        outputfilehbox.addWidget(self.fileOutputButton)
-        self.fileOutputButton.clicked.connect(self.get_output_file)
+        output_file_horizontal_box = QtGui.QHBoxLayout()
+        vertical_box.addLayout(output_file_horizontal_box)
+        self.file_output_text = QtGui.QLineEdit()
+        output_file_horizontal_box.addWidget(self.file_output_text)
+        self.file_output_button = QtGui.QPushButton()
+        output_file_horizontal_box.addWidget(self.file_output_button)
+        self.file_output_button.clicked.connect(self.get_output_file)
 
-        buttonhbox = QtGui.QHBoxLayout()
-        vbox.addLayout(buttonhbox)
-        self.generateButton = QtGui.QPushButton()
-        buttonhbox.addWidget(self.generateButton)
-        self.generateButton.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
-        buttonhbox.setAlignment(QtCore.Qt.AlignRight)
-        self.generateButton.clicked.connect(self.generate)
+        button_horizontal_box = QtGui.QHBoxLayout()
+        vertical_box.addLayout(button_horizontal_box)
+        self.generate_button = QtGui.QPushButton()
+        button_horizontal_box.addWidget(self.generate_button)
+        self.generate_button.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        button_horizontal_box.setAlignment(QtCore.Qt.AlignRight)
+        self.generate_button.clicked.connect(self.generate_output_file)
 
-
-        # self.setGeometry(300, 300, 250, 150)
         self.setWindowTitle("Keypoint extractor")
         self.change_language()
         icon = QtGui.QIcon('resources/logo.png')
@@ -92,63 +89,62 @@ class GUI(QtGui.QWidget):
         self.setFixedSize(500, self.geometry().height())
 
     def change_language(self):
-        lang = self.get_lang()
-        self.languageLabel.setText(self.texts[lang][0])
-        self.fileInputVideoButton.setText(self.texts[lang][2])
-        self.fileInputImageButton.setText(self.texts[lang][10])
-        self.fileOutputButton.setText(self.texts[lang][3])
-        self.generateButton.setText(self.texts[lang][1])
-        self.helpButton.setText(self.texts[lang][12])
+        language = self.get_lang()
+        self.language_label.setText(self.texts[language][0])
+        self.file_input_video_button.setText(self.texts[language][2])
+        self.file_input_image_button.setText(self.texts[language][10])
+        self.file_output_button.setText(self.texts[language][3])
+        self.generate_button.setText(self.texts[language][1])
+        self.help_button.setText(self.texts[language][12])
 
     def show_help(self):
-        lang = self.get_lang()
-        QtGui.QMessageBox.information(self, self.windowTitle(), self.texts[lang][13], self.texts[lang][6])
+        language = self.get_lang()
+        QtGui.QMessageBox.information(self, self.windowTitle(), self.texts[language][13], self.texts[language][6])
 
     def get_input_image_file(self):
-        file = QtGui.QFileDialog.getOpenFileName()
-        self.fileInputImageText.setText(file)
+        file_input_path = QtGui.QFileDialog.getOpenFileName()
+        self.file_input_image_text.setText(file_input_path)
 
     def get_input_video_file(self):
-        file = QtGui.QFileDialog.getOpenFileName()
-        self.fileInputVideoText.setText(file)
+        file_input_path = QtGui.QFileDialog.getOpenFileName()
+        self.file_input_video_text.setText(file_input_path)
 
     def get_output_file(self):
-        filedialog = QtGui.QFileDialog()
-        file = str(filedialog.getSaveFileName(filter = 'XML (*.xml)'))
-        if file != "" and not file.endswith(".xml"):
-            file += ".xml"
-        self.fileOutputText.setText(file)
+        file_dialog = QtGui.QFileDialog()
+        file_output_path = str(file_dialog.getSaveFileName(filter = 'XML (*.xml)'))
+        if file_output_path != "" and not file_output_path.endswith(".xml"):
+            file_output_path += ".xml"
+        self.file_output_text.setText(file_output_path)
 
-    def generate(self):
-        lang = self.get_lang()
-        self.progress = QtGui.QProgressDialog(self.texts[lang][4], "Cancel", 0, 100, self)
+    def generate_output_file(self):
+        language = self.get_lang()
+        self.progress = QtGui.QProgressDialog(self.texts[language][4], "Cancel", 0, 100, self)
         self.progress.setCancelButton(None)
         self.progress.setWindowTitle(self.windowTitle())
         try:
-            controller.generate(str(self.fileInputImageText.text()), str(self.fileInputVideoText.text()), str(self.fileOutputText.text()), self)
-            QtGui.QMessageBox.information(self, self.windowTitle(), self.texts[lang][5], self.texts[lang][6])
+            controller.generate_output_file(str(self.file_input_image_text.text()), str(self.file_input_video_text.text()), str(self.file_output_text.text()), self)
+            QtGui.QMessageBox.information(self, self.windowTitle(), self.texts[language][5], self.texts[language][6])
 
         except EmptyImageFileInputError:
-            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[lang][11], self.texts[lang][6])
+            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[language][11], self.texts[language][6])
 
         except EmptyVideoFileInputError:
-            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[lang][7], self.texts[lang][6])
+            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[language][7], self.texts[language][6])
 
         except EmptyFileOutputError:
-            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[lang][8], self.texts[lang][6])
+            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[language][8], self.texts[language][6])
 
         except Exception, e:
             print(type(e).__name__ + ": " + e.message)
-            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[lang][9], self.texts[lang][6])
+            QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[language][9], self.texts[language][6])
 
-
-    def update_percentage(self, percentage):
+    def update_completed_percentage(self, percentage):
         self.progress.setValue(percentage)
 
     def get_lang(self):
-        lang = "en"
-        for l in self.langs:
-            if unicode(self.langs[l]) == unicode(self.languageCombo.currentText()):
-                lang = l
+        language = "en"
+        for l in self.languages:
+            if unicode(self.languages[l]) == unicode(self.language_combo.currentText()):
+                language = l
                 break
-        return lang
+        return language
