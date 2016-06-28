@@ -2,6 +2,11 @@ import sys
 from ui.cli import CLI
 from ui.gui import GUI
 from PyQt4 import QtGui
+import os
+
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
 
 num_args = len(sys.argv)
 if num_args == 1:
