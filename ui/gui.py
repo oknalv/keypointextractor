@@ -1,12 +1,13 @@
 # coding: utf-8
 
 import xml.etree.ElementTree as xml
-import controller.controller as controller
+from controller.controller import Controller
 from lib.errors import *
+from lib.observer import Observer
 from PyQt4 import QtGui, QtCore
 
 
-class GUI(QtGui.QWidget):
+class GUI(QtGui.QWidget, Observer):
     def __init__(self):
         super(GUI, self).__init__()
         self.texts = {}
@@ -122,7 +123,9 @@ class GUI(QtGui.QWidget):
         self.progress.setCancelButton(None)
         self.progress.setWindowTitle(self.windowTitle())
         try:
-            controller.generate_output_file(str(self.file_input_image_text.text()), str(self.file_input_video_text.text()), str(self.file_output_text.text()), self)
+            controller = Controller()
+            controller.add_observer(self)
+            controller.generate_output_file(str(self.file_input_image_text.text()), str(self.file_input_video_text.text()), str(self.file_output_text.text()))
             QtGui.QMessageBox.information(self, self.windowTitle(), self.texts[language][5], self.texts[language][6])
 
         except EmptyImageFileInputError:
@@ -138,7 +141,7 @@ class GUI(QtGui.QWidget):
             print(type(e).__name__ + ": " + e.message)
             QtGui.QMessageBox.warning(self, self.windowTitle(), self.texts[language][9], self.texts[language][6])
 
-    def update_completed_percentage(self, percentage):
+    def update(self, percentage):
         self.progress.setValue(percentage)
 
     def get_lang(self):
