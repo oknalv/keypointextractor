@@ -18,7 +18,7 @@ class CLI(Observer):
         try:
             controller = Controller()
             controller.add_observer(self)
-            controller.generate_output_file(input_image_file, input_video_file, output_file, self)
+            controller.generate_output_file(input_image_file, input_video_file, output_file)
             print "\nFile successfully created"
 
         except EmptyImageFileInputError:
